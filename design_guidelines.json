@@ -1,0 +1,119 @@
+{
+  "theme": "Light",
+  "archetype": "Archetype 1: Organic & Earthy",
+  "brand_name": "Curlnect",
+  "colors": {
+    "light": {
+      "background": "#FAF9F6",
+      "surface": "#FFFFFF",
+      "primary": "#984A23",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#EEDDCB",
+      "secondary_foreground": "#4A2B12",
+      "accent": "#4A5D23",
+      "text_primary": "#2B231D",
+      "text_secondary": "#5C4E43",
+      "border": "#E2D9CF",
+      "muted": "#F3EFEA"
+    },
+    "dark": {
+      "background": "#1A1614",
+      "surface": "#251F1C",
+      "primary": "#C57245",
+      "primary_foreground": "#1A1614",
+      "secondary": "#3E3025",
+      "secondary_foreground": "#EEDDCB",
+      "accent": "#6A823B",
+      "text_primary": "#EAE6E1",
+      "text_secondary": "#A89C91",
+      "border": "#3A3029",
+      "muted": "#2F2722"
+    }
+  },
+  "typography": {
+    "fonts": [
+      {
+        "name": "Playfair Display",
+        "url": "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap",
+        "usage": "H1, H2, Hero displays (Editorial, premium vibe, organic feel)"
+      },
+      {
+        "name": "Plus Jakarta Sans",
+        "url": "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300..800&display=swap",
+        "usage": "UI elements, body text, buttons, dashboards (Clean, modern legibility)"
+      }
+    ],
+    "scales": {
+      "h1": "text-5xl md:text-6xl tracking-tight leading-none font-serif",
+      "h2": "text-3xl md:text-4xl tracking-tight leading-tight font-serif",
+      "h3": "text-xl md:text-2xl font-sans font-semibold",
+      "body": "text-base font-sans leading-relaxed",
+      "small": "text-sm tracking-wide font-sans text-muted-foreground",
+      "overline": "text-xs tracking-[0.2em] uppercase font-sans font-bold"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Mobile-first, photography-led. Generous breathing room for images. Asymmetrical bento grids for discovery. High-contrast text over warm backgrounds.",
+    "container_padding": "p-6 md:p-12",
+    "border_radius": "rounded-2xl for main cards, rounded-full for buttons and pills",
+    "grid_modes": {
+      "marketing": "grid-cols-1 md:grid-cols-12 gap-8 with overlapping image placements",
+      "dashboard": "grid-cols-1 md:grid-cols-3 gap-6 strict bento"
+    }
+  },
+  "component_guidelines": {
+    "buttons": "Pill-shaped (rounded-full), primary uses solid #984A23, hover states slightly darken with slight transform translate-y-px.",
+    "cards": "Cardless or subtle 1px border (#E2D9CF) with very soft shadow (shadow-sm). For images, use absolute positioning with gradient overlays (bg-gradient-to-t from-black/60 to-transparent) to ensure text contrast.",
+    "navigation": "Sticky top, Crystal Glass effect: backdrop-blur-xl bg-[#FAF9F6]/70, 1px bottom border border-[#E2D9CF]. Nav links must be highly visible.",
+    "inputs": "Shadcn based, h-12 (touch friendly for mobile users), subtle background #F3EFEA, focus ring 2px #984A23.",
+    "tabs": "Pill-based tab list rather than underline, allowing easy horizontal scrolling on mobile.",
+    "modals": "Bottom drawers for mobile (booking flow), centered dialogs for desktop."
+  },
+  "page_by_page_direction": {
+    "landing_page": "Hero: Large split screen or overlapping bento. Left: Value prop with Playfair Display. Right: Dynamic collage of faces/styles. Search bar (Style + City) prominent in hero. Categories: Asymmetrical grid with large imagery celebrating diverse beauty.",
+    "discovery_page": "Filter pills horizontally scrollable at top. Grid of practitioner cards (large image, 1:1 or 4:5 ratio). Clean typography, star rating in gold/amber. Image carousels inside the cards for mobile swiping.",
+    "practitioner_profile": "Instagram-style header. Massive profile image or gallery. Service menu as an accordion or list with clear 'Book' buttons. Reviews section featuring photo thumbnails.",
+    "booking_flow": "Step-by-step mobile-optimized wizard. Step 1: Service selection. Step 2: Calendar (Shadcn DatePicker inline). Step 3: Notes & Summary (Price breakdown, Deposit vs Remaining). Step 4: Mock payment.",
+    "dashboards": "Strict, clean utility. Sidebar navigation on desktop, bottom bar on mobile. Metric cards with subtle green trends. Table list for upcoming bookings."
+  },
+  "media": {
+    "image_urls": {
+      "hero_portrait": {
+        "url": "https://images.unsplash.com/photo-1593351799227-75df2026356b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxibGFjayUyMGJlYXV0eSUyMHBvcnRyYWl0fGVufDB8fHx8MTc4MTQ2NTIyMnww&ixlib=rb-4.1.0&q=85",
+        "description": "Woman with green and white flower on ear, elegant profile"
+      },
+      "category_braids": {
+        "url": "https://images.unsplash.com/photo-1572955304332-bf714bd49add?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMjV8MHwxfHNlYXJjaHw0fHxibGFjayUyMHdvbWFuJTIwYnJhaWRzfGVufDB8fHx8MTc4MTQ2NTIyMnww&ixlib=rb-4.1.0&q=85",
+        "description": "Woman wearing multicolored blouse and intricate braided hair"
+      },
+      "category_barber": {
+        "url": "https://images.unsplash.com/photo-1567894340315-735d7c361db0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxibGFjayUyMGJhcmJlciUyMGZhZGV8ZW58MHx8fHwxNzgxNDY1MjIyfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Barber cutting fade with precision"
+      },
+      "category_mehndi": {
+        "url": "https://images.unsplash.com/photo-1623217509141-6f735087b50c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxtZWhuZGklMjBoYW5kc3xlbnwwfHx8fDE3ODE0NjUyMjJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Woman's hands painted with henna"
+      },
+      "category_nails": {
+        "url": "https://images.unsplash.com/photo-1688583417770-ff6cc18071dc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwzfHxuYWlsJTIwYXJ0JTIwc2Fsb258ZW58MHx8fHwxNzgxNDY1MjIyfDA&ixlib=rb-4.1.0&q=85",
+        "description": "Nail art close-up with ring"
+      }
+    }
+  },
+  "motion_and_interaction": {
+    "hover_states": "Images scale up slightly (scale-105) on hover with a slow ease-out transition. Buttons translate-y-[-2px] with increased shadow.",
+    "page_transitions": "Fade in and slight slide up (framer-motion opacity: 0, y: 10).",
+    "scrolling": "Lenis smooth scrolling for marketing pages. Sticky headers."
+  },
+  "testing_attributes": {
+    "rule": "All interactive and key informational elements MUST have data-testid attributes (kebab-case, role-based).",
+    "examples": ["data-testid='book-now-button'", "data-testid='service-category-filter'", "data-testid='booking-date-selector'"]
+  },
+  "instructions_to_main_agent": [
+    "Use standard HTML + Tailwind for marketing layouts. Avoid Shadcn Cards on landing pages to maintain organic asymmetry.",
+    "Use Shadcn components heavily for the dashboards and booking flows, but override borders/radii to match the rounded-2xl organic feel.",
+    "Implement Lucide React icons.",
+    "For all images, use the provided Unsplash URLs.",
+    "For the practitioner portfolio grid, ensure images are object-cover and have consistent aspect ratios (e.g., aspect-[4/5] or aspect-square)."
+  ]
+}
