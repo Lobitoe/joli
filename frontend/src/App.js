@@ -1,55 +1,97 @@
-import { useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { Toaster } from "sonner";
+import { AuthProvider } from "@/contexts/AuthContext";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import ProtectedRoute from "@/components/ProtectedRoute";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import LandingPage from "@/pages/LandingPage";
+import BrowsePage from "@/pages/BrowsePage";
+import PractitionerProfilePage from "@/pages/PractitionerProfilePage";
+import BookingPage from "@/pages/BookingPage";
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
+import ClientDashboard from "@/pages/ClientDashboard";
+import PractitionerDashboard from "@/pages/PractitionerDashboard";
+import PractitionerOnboarding from "@/pages/PractitionerOnboarding";
+import ServicesManager from "@/pages/ServicesManager";
+import PortfolioManager from "@/pages/PortfolioManager";
+import AvailabilityManager from "@/pages/AvailabilityManager";
+import AdminDashboard from "@/pages/AdminDashboard";
+import HowItWorksPage from "@/pages/HowItWorksPage";
+import DirectBookingPage from "@/pages/DirectBookingPage";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
+function Layout() {
   return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
+    <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#2B231D]">
+      <Navbar />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
     </div>
   );
-};
+}
 
 function App() {
   return (
-    <div className="App">
+    <AuthProvider>
       <BrowserRouter>
+        <Toaster position="top-center" richColors />
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/browse" element={<BrowsePage />} />
+            <Route path="/practitioner/:id" element={<PractitionerProfilePage />} />
+            <Route path="/book/:practitionerId/:serviceId" element={
+              <ProtectedRoute roles={["client"]}>
+                <BookingPage />
+              </ProtectedRoute>
+            } />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/p/:slug" element={<DirectBookingPage />} />
+            <Route path="/dashboard/client" element={
+              <ProtectedRoute roles={["client"]}>
+                <ClientDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/practitioner" element={
+              <ProtectedRoute roles={["practitioner"]}>
+                <PractitionerDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/practitioner/onboarding" element={
+              <ProtectedRoute roles={["practitioner"]}>
+                <PractitionerOnboarding />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/practitioner/services" element={
+              <ProtectedRoute roles={["practitioner"]}>
+                <ServicesManager />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/practitioner/portfolio" element={
+              <ProtectedRoute roles={["practitioner"]}>
+                <PortfolioManager />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/practitioner/availability" element={
+              <ProtectedRoute roles={["practitioner"]}>
+                <AvailabilityManager />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin" element={
+              <ProtectedRoute roles={["admin"]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            } />
           </Route>
         </Routes>
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   );
 }
 
