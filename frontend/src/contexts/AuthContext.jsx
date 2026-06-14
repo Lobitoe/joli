@@ -54,7 +54,10 @@ export function AuthProvider({ children }) {
   const logout = async () => {
     try {
       await api.post("/auth/logout");
-    } catch (_) {}
+    } catch (err) {
+      // logout endpoint is best-effort — proceed with local cleanup regardless
+      console.debug("logout call failed", err);
+    }
     localStorage.removeItem("curlnect_token");
     setUser(null);
   };

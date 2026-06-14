@@ -6,6 +6,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Calendar, Clock, MapPin, CheckCircle2, ArrowLeft, CreditCard } from "lucide-react";
 import { toast } from "sonner";
 
+const MS_PER_DAY = 86400000;
+
 function fmtDate(d) {
   return d.toISOString().slice(0, 10);
 }
@@ -19,7 +21,7 @@ export default function BookingPage() {
 
   const [practitioner, setPractitioner] = useState(null);
   const [service, setService] = useState(null);
-  const [date, setDate] = useState(fmtDate(new Date(Date.now() + 86400000)));
+  const [date, setDate] = useState(fmtDate(new Date(Date.now() + MS_PER_DAY)));
   const [slots, setSlots] = useState([]);
   const [slot, setSlot] = useState(null);
   const [serviceLocation, setServiceLocation] = useState("practitioner_location");

@@ -13,7 +13,6 @@ from typing import List, Optional, Literal
 
 from fastapi import FastAPI, APIRouter, Depends, HTTPException, Response, Request, Query
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field, EmailStr, ConfigDict
 
 from auth import (
@@ -27,10 +26,7 @@ from auth import (
 
 
 # ---------- Mongo ----------
-mongo_url = os.environ["MONGO_URL"]
-db_name = os.environ["DB_NAME"]
-client = AsyncIOMotorClient(mongo_url)
-db = client[db_name]
+from db import db, client
 
 # ---------- App ----------
 app = FastAPI(title="Curlnect API")

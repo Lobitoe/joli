@@ -192,7 +192,7 @@ export default function LandingPage() {
               >
                 <div className="grid grid-cols-2 gap-0.5">
                   {(p.portfolio_thumbs || []).slice(0, 4).map((src, i) => (
-                    <div key={i} className="aspect-square overflow-hidden">
+                    <div key={`${p.id}-thumb-${src}-${i}`} className="aspect-square overflow-hidden">
                       <img src={src} alt="" className="w-full h-full object-cover img-hover-scale" />
                     </div>
                   ))}
@@ -221,11 +221,11 @@ export default function LandingPage() {
       {/* VALUE PROPS */}
       <section className="mx-auto max-w-7xl px-5 md:px-10 py-16 grid grid-cols-1 md:grid-cols-3 gap-6">
         {[
-          { icon: <Shield size={20} />, title: "Deposit-protected bookings", body: "A 25% deposit locks your slot — practitioners stop losing 6-hour days, clients show up with confidence." },
-          { icon: <Heart size={20} />, title: "Built for diasporic beauty", body: "Knotless braids that run 6 hours. Mehndi priced by complexity. Mobile barbers with route plans. Fresha can't do this." },
-          { icon: <Calendar size={20} />, title: "Your own clients, 0% commission", body: "Practitioners get a direct booking link. Anyone who books through it pays you full price, forever." },
-        ].map((v, i) => (
-          <div key={i} className="bg-white border border-[#E2D9CF] rounded-2xl p-6">
+          { key: "deposit", icon: <Shield size={20} />, title: "Deposit-protected bookings", body: "A 25% deposit locks your slot — practitioners stop losing 6-hour days, clients show up with confidence." },
+          { key: "diaspora", icon: <Heart size={20} />, title: "Built for diasporic beauty", body: "Knotless braids that run 6 hours. Mehndi priced by complexity. Mobile barbers with route plans. Fresha can't do this." },
+          { key: "zero-commission", icon: <Calendar size={20} />, title: "Your own clients, 0% commission", body: "Practitioners get a direct booking link. Anyone who books through it pays you full price, forever." },
+        ].map((v) => (
+          <div key={v.key} className="bg-white border border-[#E2D9CF] rounded-2xl p-6">
             <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EEDDCB] text-[#4A2B12]">
               {v.icon}
             </div>

@@ -49,7 +49,7 @@ def get_token_from_request(request: Request) -> str | None:
 
 
 async def get_current_user(request: Request) -> dict:
-    from server import db  # local import to avoid circular
+    from db import db
     token = get_token_from_request(request)
     if not token:
         raise HTTPException(status_code=401, detail="Not authenticated")
