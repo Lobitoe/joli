@@ -122,7 +122,7 @@ export default function LandingPage() {
                 src="https://images.unsplash.com/photo-1593351799227-75df2026356b?crop=entropy&cs=srgb&fm=jpg&q=92&w=1600"
                 alt="Multicultural beauty"
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
