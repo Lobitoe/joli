@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import { ADMIN_DASH } from "@/constants/testIds";
-import { Users, DollarSign, Calendar, TrendingUp, ShieldCheck } from "lucide-react";
+import { Users, DollarSign, Calendar, TrendingUp, ShieldCheck, UserCog } from "lucide-react";
 
 export default function AdminDashboard() {
   const [data, setData] = useState(null);
@@ -27,9 +27,14 @@ export default function AdminDashboard() {
           <h1 className="font-serif text-4xl md:text-5xl">Admin</h1>
           <p className="text-[#6E5F50] mt-1">Marketplace health at a glance.</p>
         </div>
-        <Link to="/dashboard/admin/verifications" className="rounded-full bg-[#C8552F] hover:bg-[#A8451C] text-white font-semibold px-4 py-2 text-sm inline-flex items-center gap-1">
-          <ShieldCheck size={14} /> Verification queue
-        </Link>
+        <div className="flex gap-2 flex-wrap">
+          <Link to="/dashboard/admin/users" data-testid="admin-dash-users-link" className="rounded-full bg-[#1F1A17] hover:bg-[#3D332B] text-white font-semibold px-4 py-2 text-sm inline-flex items-center gap-1">
+            <UserCog size={14} /> Users & activity
+          </Link>
+          <Link to="/dashboard/admin/verifications" className="rounded-full bg-[#C8552F] hover:bg-[#A8451C] text-white font-semibold px-4 py-2 text-sm inline-flex items-center gap-1">
+            <ShieldCheck size={14} /> Verification queue
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">

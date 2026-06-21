@@ -9,25 +9,25 @@ const CATEGORY_CARDS = [
   {
     name: "African & Caribbean Hair",
     query: "Knotless Braids",
-    img: "https://images.unsplash.com/photo-1572955304332-bf714bd49add?crop=entropy&cs=srgb&fm=jpg&q=85&w=900",
+    img: "https://images.unsplash.com/photo-1572955304332-bf714bd49add?crop=entropy&cs=srgb&fm=jpg&q=92&w=1400",
     sub: "Braids · Locs · Natural Hair · Weaves",
   },
   {
     name: "Barber & Men's Grooming",
     query: "Skin Fade",
-    img: "https://images.unsplash.com/photo-1567894340315-735d7c361db0?crop=entropy&cs=srgb&fm=jpg&q=85&w=900",
+    img: "https://images.unsplash.com/photo-1567894340315-735d7c361db0?crop=entropy&cs=srgb&fm=jpg&q=92&w=1400",
     sub: "Skin Fades · Designs · Waves · Beards",
   },
   {
     name: "Nail Studio",
     query: "Gel Manicure",
-    img: "https://images.unsplash.com/photo-1688583417770-ff6cc18071dc?crop=entropy&cs=srgb&fm=jpg&q=85&w=900",
+    img: "https://images.unsplash.com/photo-1688583417770-ff6cc18071dc?crop=entropy&cs=srgb&fm=jpg&q=92&w=1400",
     sub: "Gel · Acrylic · Dip · 3D Nail Art",
   },
   {
     name: "South Asian Beauty",
     query: "Bridal Mehndi",
-    img: "https://images.unsplash.com/photo-1623217509141-6f735087b50c?crop=entropy&cs=srgb&fm=jpg&q=85&w=900",
+    img: "https://images.unsplash.com/photo-1623217509141-6f735087b50c?crop=entropy&cs=srgb&fm=jpg&q=92&w=1400",
     sub: "Mehndi · Threading · Bridal MUA",
   },
 ];
@@ -119,8 +119,10 @@ export default function LandingPage() {
           <div className="md:col-span-5 relative">
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1593351799227-75df2026356b?crop=entropy&cs=srgb&fm=jpg&q=85&w=900"
+                src="https://images.unsplash.com/photo-1593351799227-75df2026356b?crop=entropy&cs=srgb&fm=jpg&q=92&w=1600"
                 alt="Multicultural beauty"
+                loading="eager"
+                fetchpriority="high"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />

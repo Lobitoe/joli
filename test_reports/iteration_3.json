@@ -1,0 +1,43 @@
+{
+  "summary": "Iteration 3 testing of Joli marketplace MVP — verified footer link fix, sharper hero image (w=1600), and the brand new admin user management at /dashboard/admin/users (UI + 3 new APIs). 14/14 v3 backend tests pass; 23/23 v2 regression pass (37/37 total). Frontend: all 7 footer links navigate correctly, /dashboard/admin/users renders with role tabs (all/practitioner/client/admin), search narrows to Blessing, 5 practitioner rows show studio name + ★ rating + bookings + Suspend toggle, activity feed shows 27 events. Suspend → public /api/practitioners hides Blessing → reinstate → she reappears (round-trip verified). Non-admin users get 403 on /api/admin/users and /api/admin/activity. Hero image src confirmed w=1600 quality=92.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/practitioners (list)", "issue": "Public list response does NOT include a 'slug' field on each practitioner — uses 'direct_booking_slug'. Detail endpoint by-slug uses /practitioners/slug/{slug}. Minor consistency note; not blocking. Detail-by-id response shape is fine."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Global (carryover from iteration 2)", "issues": ["React console warning: 'Invalid DOM property fetchpriority. Did you mean fetchPriority?' — minor; comes from an <img fetchpriority> attribute. Non-blocking."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_joli_v3_admin.py",
+    "/app/backend/tests/test_joli_v2.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "(LOW) Fix img fetchpriority -> fetchPriority React prop casing to silence console warning.",
+    "(LOW) Consider returning 'slug' alias for direct_booking_slug in public /api/practitioners list to match common REST convention."
+  ],
+  "critical_code_review_comments": [
+    "server.py is now ~1141 lines — well above the 700-line threshold flagged in iteration 2. Splitting into routers/ (auth, practitioners, bookings, blog, verifications, admin, admin_users) is overdue and should happen before adding the next feature.",
+    "GET /api/admin/users loops awaits for bookings_count and practitioner enrichment serially in Python (lines 845-861). For 500 users this is N*2 DB round-trips; consider $lookup aggregation or asyncio.gather(...) for scale. Acceptable for current MVP size (<100 users).",
+    "PUT /api/admin/practitioners/{id}/suspend writes suspended_at = None when un-suspending — preserves audit trail correctly. Good.",
+    "GET /api/practitioners filter q={'is_suspended': {'$ne': True}} correctly hides suspended practitioners (verified by round-trip suspend/reinstate test).",
+    "Activity feed mixes 4 event kinds and sorts by 'at' desc in-memory after combining — correct, but if event volume grows the limit(15)+limit(20)+limit(10)+limit(10) per-source could miss recent events of one type; consider per-kind capping + global sort or use a unified activity collection later.",
+    "AdminUsersPage.jsx uses Promise.all for /admin/users + /admin/activity — good UX. window.prompt for suspension reason is a quick MVP shortcut; replace with shadcn Dialog before production."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_joli_v3_admin.py (NEW — 14 tests)"
+  ],
+  "success_rate": {"backend": "100% (37/37 — 14 new + 23 regression)", "frontend": "100% (all iteration-3 acceptance criteria verified)"},
+  "test_credentials": "All credentials in /app/memory/test_credentials.md verified working.",
+  "seed_data_creation": "Suspend test toggles Blessing's is_suspended on & off — state restored to FALSE at end of test (verified via final GET /api/practitioners). No leftover data.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 3 finished at 37/37 backend + 100% frontend. Important: GET /api/practitioners response uses 'direct_booking_slug' NOT 'slug' — don't write tests that expect 'slug'. Auth cookie-vs-Bearer gotcha from iteration 2 still applies — keep using fresh requests.request() calls in tests (see _auth helper in test_joli_v3_admin.py). Suspend round-trip leaves DB clean. Admin verification queue may still be empty (most items approved from iteration 2). Hero image now uses w=1600 q=92 — keep this if the file is touched.",
+  "rca of the issue": "Only one test-script failure during the run: I initially asserted 'blessing-braids-yyc' in slugs (from /api/practitioners), but that endpoint returns 'direct_booking_slug' not 'slug', so slugs={None}. Fix was a test-only change (compare on display_name lowercased). No production code change required."
+}

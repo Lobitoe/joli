@@ -226,7 +226,7 @@ async def list_practitioners(
     service_mode: Optional[str] = None,  # clients_come_to_me | i_travel_to_clients | both
     practitioner_type: Optional[str] = None,
 ):
-    q: dict = {}
+    q: dict = {"is_suspended": {"$ne": True}}
     if city:
         q["city"] = {"$regex": f"^{city}$", "$options": "i"}
     if practitioner_type:
@@ -821,6 +821,123 @@ async def admin_stats(user: dict = Depends(require_role("admin"))):
         "practitioners_by_type": by_type,
         "recent_bookings": clean_list(sorted(bookings, key=lambda x: x["created_at"], reverse=True)[:15]),
     }
+
+
+# =====================================================================
+# Admin user management
+# =====================================================================
+@api.get("/admin/users")
+async def admin_list_users(
+    user: dict = Depends(require_role("admin")),
+    role: Optional[str] = None,
+    search: Optional[str] = None,
+):
+    q: dict = {}
+    if role:
+        q["role"] = role
+    if search:
+        q["$or"] = [
+            {"email": {"$regex": search, "$options": "i"}},
+            {"name": {"$regex": search, "$options": "i"}},
+        ]
+    users = await db.users.find(q, {"password_hash": 0}).sort("created_at", -1).to_list(500)
+    users = clean_list(users)
+    for u in users:
+        u["bookings_count"] = await db.bookings.count_documents({
+            "$or": [{"client_id": u["id"]}, {"_practitioner_user_id": u["id"]}]
+        })
+        # If user is a practitioner, attach their practitioner profile summary
+        if u["role"] == "practitioner":
+            prac = await db.practitioners.find_one({"user_id": u["id"]})
+            if prac:
+                u["practitioner_id"] = prac["id"]
+                u["practitioner_display_name"] = prac.get("display_name")
+                u["verification_status"] = prac.get("verification_status", "unverified")
+                u["is_suspended"] = prac.get("is_suspended", False)
+                u["avg_rating"] = prac.get("avg_rating", 0)
+                u["total_reviews"] = prac.get("total_reviews", 0)
+                u["bookings_count"] = await db.bookings.count_documents({"practitioner_id": prac["id"]})
+        elif u["role"] == "client":
+            u["bookings_count"] = await db.bookings.count_documents({"client_id": u["id"]})
+    return users
+
+
+class SuspendPractitionerIn(BaseModel):
+    suspended: bool
+    reason: Optional[str] = None
+
+
+@api.put("/admin/practitioners/{practitioner_id}/suspend")
+async def admin_toggle_suspend(practitioner_id: str, body: SuspendPractitionerIn, user: dict = Depends(require_role("admin"))):
+    prac = await db.practitioners.find_one({"id": practitioner_id})
+    if not prac:
+        raise HTTPException(status_code=404, detail="Practitioner not found")
+    await db.practitioners.update_one(
+        {"id": practitioner_id},
+        {"$set": {
+            "is_suspended": body.suspended,
+            "suspension_reason": body.reason if body.suspended else None,
+            "suspended_at": utcnow_iso() if body.suspended else None,
+        }},
+    )
+    return {"ok": True, "is_suspended": body.suspended}
+
+
+@api.get("/admin/activity")
+async def admin_activity_feed(user: dict = Depends(require_role("admin"))):
+    """Recent platform activity for monitoring — last 50 actions, newest first."""
+    items = []
+
+    # Recent users
+    new_users = await db.users.find({}, {"password_hash": 0}).sort("created_at", -1).limit(15).to_list(15)
+    for u in new_users:
+        items.append({
+            "kind": "user_joined",
+            "at": u["created_at"],
+            "summary": f"{u['name']} joined as {u['role']}",
+            "user_id": u["id"],
+            "user_role": u["role"],
+        })
+
+    # Recent bookings
+    recent_bookings = await db.bookings.find({}).sort("created_at", -1).limit(20).to_list(20)
+    for b in recent_bookings:
+        items.append({
+            "kind": "booking_created",
+            "at": b["created_at"],
+            "summary": f"{b['client_name']} booked {b['service_name']} with {b['practitioner_name']} ({b['client_source']})",
+            "booking_id": b["id"],
+            "amount": b["quoted_price"],
+            "commission": b["commission_amount"],
+            "status": b["status"],
+        })
+
+    # Recent reviews
+    recent_reviews = await db.reviews.find({}).sort("created_at", -1).limit(10).to_list(10)
+    for r in recent_reviews:
+        prac = await db.practitioners.find_one({"id": r["practitioner_id"]})
+        items.append({
+            "kind": "review_posted",
+            "at": r["created_at"],
+            "summary": f"{r['client_name']} rated {prac['display_name'] if prac else 'practitioner'} {r['rating']}★",
+            "rating": r["rating"],
+            "review_id": r["id"],
+        })
+
+    # Recent verification submissions
+    recent_verifs = await db.practitioner_verifications.find({}).sort("created_at", -1).limit(10).to_list(10)
+    for v in recent_verifs:
+        prac = await db.practitioners.find_one({"id": v["practitioner_id"]})
+        items.append({
+            "kind": "verification_submitted",
+            "at": v["created_at"],
+            "summary": f"{prac['display_name'] if prac else 'Practitioner'} submitted {v['verification_type'].replace('_', ' ')} → {v['status']}",
+            "verification_id": v["id"],
+            "verification_status": v["status"],
+        })
+
+    items.sort(key=lambda x: x["at"], reverse=True)
+    return items[:50]
 
 
 # =====================================================================

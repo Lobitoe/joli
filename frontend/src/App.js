@@ -31,6 +31,7 @@ import BlogIndexPage from "@/pages/BlogIndexPage";
 import BlogPostPage from "@/pages/BlogPostPage";
 import VerificationPage from "@/pages/VerificationPage";
 import AdminVerificationQueue from "@/pages/AdminVerificationQueue";
+import AdminUsersPage from "@/pages/AdminUsersPage";
 
 function Layout() {
   return (
@@ -108,6 +109,11 @@ function App() {
             <Route path="/dashboard/admin/verifications" element={
               <ProtectedRoute roles={ADMIN_ROLES}>
                 <AdminVerificationQueue />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/users" element={
+              <ProtectedRoute roles={ADMIN_ROLES}>
+                <AdminUsersPage />
               </ProtectedRoute>
             } />
           </Route>
