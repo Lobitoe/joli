@@ -5,7 +5,7 @@ export default function HowItWorksPage() {
   return (
     <div className="mx-auto max-w-4xl px-5 md:px-10 py-12">
       <div className="text-center mb-12">
-        <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#984A23]">The way it works</div>
+        <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#C8552F]">The way it works</div>
         <h1 className="font-serif text-5xl mt-2">Booking, deposits, and a fair model.</h1>
       </div>
 
@@ -17,14 +17,14 @@ export default function HowItWorksPage() {
         <Step n="05" title="Show up, look incredible, leave a review" body="After your appointment, leave a rating with optional photos. Your practitioner can respond. The community learns." />
       </div>
 
-      <div className="mt-14 rounded-3xl border border-[#E2D9CF] p-8 grid md:grid-cols-3 gap-6 bg-white">
+      <div className="mt-14 rounded-3xl border border-[#D9CFBE] p-8 grid md:grid-cols-3 gap-6 bg-white">
         <ValueProp icon={<Shield size={20} />} title="10% / 0% commission" body="10% on first marketplace booking. 0% on repeats. 0% on bookings via your direct link — forever." />
         <ValueProp icon={<Calendar size={20} />} title="Direct booking link" body="Every practitioner gets a personal URL to share on Instagram and WhatsApp. Those bookings cost you nothing." />
         <ValueProp icon={<Heart size={20} />} title="Built for the diaspora" body="Cultural categories at the core: cornrows by length, fades by type, mehndi by complexity, bridal by tradition." />
       </div>
 
       <div className="mt-12 text-center">
-        <Link to="/register" className="inline-flex rounded-full bg-[#984A23] hover:bg-[#7e3d1d] text-white font-semibold px-8 py-4">Get started</Link>
+        <Link to="/register" className="inline-flex rounded-full bg-[#C8552F] hover:bg-[#A8451C] text-white font-semibold px-8 py-4">Get started</Link>
       </div>
     </div>
   );
@@ -33,10 +33,10 @@ export default function HowItWorksPage() {
 function Step({ n, title, body }) {
   return (
     <div className="grid grid-cols-12 gap-4 items-start">
-      <div className="col-span-2 md:col-span-1 font-serif text-4xl text-[#984A23]">{n}</div>
+      <div className="col-span-2 md:col-span-1 font-serif text-4xl text-[#C8552F]">{n}</div>
       <div className="col-span-10 md:col-span-11">
         <div className="font-serif text-2xl">{title}</div>
-        <p className="text-[#5C4E43] mt-1 leading-relaxed">{body}</p>
+        <p className="text-[#6E5F50] mt-1 leading-relaxed">{body}</p>
       </div>
     </div>
   );
@@ -45,9 +45,9 @@ function Step({ n, title, body }) {
 function ValueProp({ icon, title, body }) {
   return (
     <div>
-      <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EEDDCB] text-[#4A2B12]">{icon}</div>
+      <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EFE8DA] text-[#3D1F2C]">{icon}</div>
       <div className="font-serif text-xl mt-3">{title}</div>
-      <div className="text-sm text-[#5C4E43] mt-1">{body}</div>
+      <div className="text-sm text-[#6E5F50] mt-1">{body}</div>
     </div>
   );
 }

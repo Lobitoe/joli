@@ -38,11 +38,11 @@ export default function AvailabilityManager() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 md:px-10 py-10">
-      <Link to="/dashboard/practitioner" className="inline-flex items-center gap-1 text-sm text-[#5C4E43] hover:text-[#984A23] mb-4"><ArrowLeft size={14} /> Back</Link>
+      <Link to="/dashboard/practitioner" className="inline-flex items-center gap-1 text-sm text-[#6E5F50] hover:text-[#C8552F] mb-4"><ArrowLeft size={14} /> Back</Link>
       <h1 className="font-serif text-4xl">Weekly availability</h1>
-      <p className="text-[#5C4E43] mt-1 mb-6">Slots calculated from these blocks.</p>
+      <p className="text-[#6E5F50] mt-1 mb-6">Slots calculated from these blocks.</p>
 
-      <div className="bg-white rounded-2xl border border-[#E2D9CF] p-5 space-y-2">
+      <div className="bg-white rounded-2xl border border-[#D9CFBE] p-5 space-y-2">
         {rows.map((r, i) => (
           <div key={r.day_of_week} className="grid grid-cols-12 gap-2 items-center">
             <div className="col-span-3 font-semibold">{DAYS[r.day_of_week]}</div>
@@ -50,14 +50,14 @@ export default function AvailabilityManager() {
               <input type="checkbox" checked={r.is_available} onChange={(e) => setRows(rows.map((x, idx) => idx === i ? { ...x, is_available: e.target.checked } : x))} />
               Open
             </label>
-            <input type="time" value={r.start_time} onChange={(e) => setRows(rows.map((x, idx) => idx === i ? { ...x, start_time: e.target.value } : x))} disabled={!r.is_available} className="col-span-3 h-11 rounded-full border border-[#E2D9CF] px-4 bg-[#F3EFEA] disabled:opacity-50" />
+            <input type="time" value={r.start_time} onChange={(e) => setRows(rows.map((x, idx) => idx === i ? { ...x, start_time: e.target.value } : x))} disabled={!r.is_available} className="col-span-3 h-11 rounded-full border border-[#D9CFBE] px-4 bg-[#EFE8DA] disabled:opacity-50" />
             <span className="col-span-1 text-center">–</span>
-            <input type="time" value={r.end_time} onChange={(e) => setRows(rows.map((x, idx) => idx === i ? { ...x, end_time: e.target.value } : x))} disabled={!r.is_available} className="col-span-3 h-11 rounded-full border border-[#E2D9CF] px-4 bg-[#F3EFEA] disabled:opacity-50" />
+            <input type="time" value={r.end_time} onChange={(e) => setRows(rows.map((x, idx) => idx === i ? { ...x, end_time: e.target.value } : x))} disabled={!r.is_available} className="col-span-3 h-11 rounded-full border border-[#D9CFBE] px-4 bg-[#EFE8DA] disabled:opacity-50" />
           </div>
         ))}
       </div>
 
-      <button onClick={save} disabled={saving} className="mt-6 rounded-full bg-[#984A23] hover:bg-[#7e3d1d] text-white px-6 py-3 font-semibold inline-flex items-center gap-2"><Save size={14} /> {saving ? "Saving…" : "Save"}</button>
+      <button onClick={save} disabled={saving} className="mt-6 rounded-full bg-[#C8552F] hover:bg-[#A8451C] text-white px-6 py-3 font-semibold inline-flex items-center gap-2"><Save size={14} /> {saving ? "Saving…" : "Save"}</button>
     </div>
   );
 }

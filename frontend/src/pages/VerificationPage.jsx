@@ -43,16 +43,16 @@ export default function VerificationPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 md:px-10 py-10">
-      <Link to="/dashboard/practitioner" className="inline-flex items-center gap-1 text-sm text-[#5C4E43] hover:text-[#984A23] mb-4">
+      <Link to="/dashboard/practitioner" className="inline-flex items-center gap-1 text-sm text-[#6E5F50] hover:text-[#C8552F] mb-4">
         <ArrowLeft size={14} /> Back to dashboard
       </Link>
       <h1 className="font-serif text-4xl md:text-5xl">Verification & badges</h1>
-      <p className="text-[#5C4E43] mt-2">
+      <p className="text-[#6E5F50] mt-2">
         Verified practitioners earn badges that appear on every profile and booking. Clients trust them more — and so do search algorithms.
       </p>
 
-      <div className="mt-6 bg-white rounded-2xl border border-[#E2D9CF] p-5">
-        <div className="text-xs uppercase tracking-widest text-[#5C4E43]">Your current status</div>
+      <div className="mt-6 bg-white rounded-2xl border border-[#D9CFBE] p-5">
+        <div className="text-xs uppercase tracking-widest text-[#6E5F50]">Your current status</div>
         <div className="flex items-center justify-between mt-2">
           <div className="font-serif text-2xl capitalize">{data.verification_status}</div>
           <span
@@ -64,7 +64,7 @@ export default function VerificationPage() {
         </div>
         {data.badges?.length > 0 && (
           <div className="mt-4">
-            <div className="text-xs text-[#5C4E43] mb-2">Active badges</div>
+            <div className="text-xs text-[#6E5F50] mb-2">Active badges</div>
             <BadgeRow badges={data.badges} size="lg" />
           </div>
         )}
@@ -74,14 +74,14 @@ export default function VerificationPage() {
         {SECTIONS.map((s) => {
           const existing = findExisting(s.type);
           return (
-            <div key={s.type} className="bg-white rounded-2xl border border-[#E2D9CF] p-5">
+            <div key={s.type} className="bg-white rounded-2xl border border-[#D9CFBE] p-5">
               <div className="flex items-start gap-3">
-                <div className="h-10 w-10 rounded-full bg-[#EEDDCB] inline-flex items-center justify-center text-[#4A2B12]">
+                <div className="h-10 w-10 rounded-full bg-[#EFE8DA] inline-flex items-center justify-center text-[#3D1F2C]">
                   <s.Icon size={18} />
                 </div>
                 <div className="flex-1">
                   <div className="font-serif text-xl">{s.title}</div>
-                  <div className="text-sm text-[#5C4E43]">{s.subtitle}</div>
+                  <div className="text-sm text-[#6E5F50]">{s.subtitle}</div>
                   {existing && (
                     <div className="mt-2 flex items-center gap-2 text-xs">
                       <span className={`chip ${existing.status === "verified" ? "chip-active" : ""}`}>{existing.status}</span>
@@ -94,13 +94,13 @@ export default function VerificationPage() {
                       placeholder="Paste a document URL or image link"
                       value={drafts[s.type] || ""}
                       onChange={(e) => setDrafts({ ...drafts, [s.type]: e.target.value })}
-                      className="flex-1 min-w-[200px] h-11 rounded-full border border-[#E2D9CF] px-4 bg-[#F3EFEA] outline-none focus:ring-2 focus:ring-[#984A23]"
+                      className="flex-1 min-w-[200px] h-11 rounded-full border border-[#D9CFBE] px-4 bg-[#EFE8DA] outline-none focus:ring-2 focus:ring-[#C8552F]"
                     />
                     <button
                       onClick={() => submit(s.type)}
                       disabled={saving === s.type}
                       data-testid={VERIFICATION.submitButton}
-                      className="rounded-full bg-[#984A23] hover:bg-[#7e3d1d] disabled:opacity-50 text-white px-4 h-11 text-sm font-semibold inline-flex items-center gap-1"
+                      className="rounded-full bg-[#C8552F] hover:bg-[#A8451C] disabled:opacity-50 text-white px-4 h-11 text-sm font-semibold inline-flex items-center gap-1"
                     >
                       <Save size={14} /> {saving === s.type ? "…" : existing ? "Resubmit" : "Submit"}
                     </button>
@@ -112,7 +112,7 @@ export default function VerificationPage() {
         })}
       </div>
 
-      <div className="mt-6 text-xs text-[#5C4E43] bg-[#EEDDCB] rounded-2xl p-4">
+      <div className="mt-6 text-xs text-[#6E5F50] bg-[#EFE8DA] rounded-2xl p-4">
         <strong>Demo note:</strong> in production, this is a real file upload (Cloudinary / S3). For the MVP, paste any URL and an admin will approve from <code>/dashboard/admin/verifications</code>.
       </div>
     </div>

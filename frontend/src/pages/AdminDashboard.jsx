@@ -11,7 +11,7 @@ export default function AdminDashboard() {
     api.get("/admin/stats").then((r) => setData(r.data));
   }, []);
 
-  if (!data) return <div className="py-20 text-center text-[#5C4E43]">Loading…</div>;
+  if (!data) return <div className="py-20 text-center text-[#6E5F50]">Loading…</div>;
 
   const cards = [
     { testid: ADMIN_DASH.gmvCard, label: "GMV", value: `$${data.gmv}`, icon: <DollarSign size={16} /> },
@@ -25,24 +25,24 @@ export default function AdminDashboard() {
       <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
         <div>
           <h1 className="font-serif text-4xl md:text-5xl">Admin</h1>
-          <p className="text-[#5C4E43] mt-1">Marketplace health at a glance.</p>
+          <p className="text-[#6E5F50] mt-1">Marketplace health at a glance.</p>
         </div>
-        <Link to="/dashboard/admin/verifications" className="rounded-full bg-[#984A23] hover:bg-[#7e3d1d] text-white font-semibold px-4 py-2 text-sm inline-flex items-center gap-1">
+        <Link to="/dashboard/admin/verifications" className="rounded-full bg-[#C8552F] hover:bg-[#A8451C] text-white font-semibold px-4 py-2 text-sm inline-flex items-center gap-1">
           <ShieldCheck size={14} /> Verification queue
         </Link>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {cards.map((c) => (
-          <div key={c.label} data-testid={c.testid} className={`rounded-2xl p-5 border ${c.accent ? "bg-[#4A5D23] text-white border-[#4A5D23]" : "bg-white border-[#E2D9CF]"}`}>
-            <div className={`text-xs uppercase tracking-widest ${c.accent ? "text-white/80" : "text-[#5C4E43]"} flex items-center gap-1`}>{c.icon} {c.label}</div>
+          <div key={c.label} data-testid={c.testid} className={`rounded-2xl p-5 border ${c.accent ? "bg-[#2D7D6F] text-white border-[#2D7D6F]" : "bg-white border-[#D9CFBE]"}`}>
+            <div className={`text-xs uppercase tracking-widest ${c.accent ? "text-white/80" : "text-[#6E5F50]"} flex items-center gap-1`}>{c.icon} {c.label}</div>
             <div className="font-serif text-3xl mt-2">{c.value}</div>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="md:col-span-1 bg-white rounded-2xl border border-[#E2D9CF] p-6">
+        <div className="md:col-span-1 bg-white rounded-2xl border border-[#D9CFBE] p-6">
           <h2 className="font-serif text-xl mb-3">Supply mix</h2>
           <div className="space-y-2">
             {Object.entries(data.practitioners_by_type).map(([k, v]) => (
@@ -53,19 +53,19 @@ export default function AdminDashboard() {
             ))}
           </div>
         </div>
-        <div className="md:col-span-2 bg-white rounded-2xl border border-[#E2D9CF] p-6" data-testid={ADMIN_DASH.recentBookingsTable}>
+        <div className="md:col-span-2 bg-white rounded-2xl border border-[#D9CFBE] p-6" data-testid={ADMIN_DASH.recentBookingsTable}>
           <h2 className="font-serif text-xl mb-3 flex items-center gap-2"><Calendar size={16} /> Recent bookings</h2>
           <div className="space-y-2">
-            {data.recent_bookings.length === 0 && <div className="text-[#5C4E43] text-sm">No bookings yet.</div>}
+            {data.recent_bookings.length === 0 && <div className="text-[#6E5F50] text-sm">No bookings yet.</div>}
             {data.recent_bookings.map((b) => (
-              <div key={b.id} className="flex items-center justify-between text-sm border-b border-[#E2D9CF] py-2 last:border-0">
+              <div key={b.id} className="flex items-center justify-between text-sm border-b border-[#D9CFBE] py-2 last:border-0">
                 <div>
                   <div className="font-semibold">{b.service_name}</div>
-                  <div className="text-xs text-[#5C4E43]">{b.client_name} → {b.practitioner_name} · {b.booking_date}</div>
+                  <div className="text-xs text-[#6E5F50]">{b.client_name} → {b.practitioner_name} · {b.booking_date}</div>
                 </div>
                 <div className="text-right">
                   <div className="font-serif">${b.quoted_price}</div>
-                  <div className="text-xs text-[#5C4E43]">commission ${b.commission_amount}</div>
+                  <div className="text-xs text-[#6E5F50]">commission ${b.commission_amount}</div>
                 </div>
               </div>
             ))}

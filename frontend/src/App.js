@@ -6,6 +6,12 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
+// Role gates — extracted to module scope so the ProtectedRoute prop array
+// reference is stable across renders (prevents unnecessary re-renders).
+const CLIENT_ROLES = ["client"];
+const PRACTITIONER_ROLES = ["practitioner"];
+const ADMIN_ROLES = ["admin"];
+
 import LandingPage from "@/pages/LandingPage";
 import BrowsePage from "@/pages/BrowsePage";
 import PractitionerProfilePage from "@/pages/PractitionerProfilePage";
@@ -28,7 +34,7 @@ import AdminVerificationQueue from "@/pages/AdminVerificationQueue";
 
 function Layout() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#2B231D]">
+    <div className="min-h-screen flex flex-col bg-[#F7F1E8] text-[#1F1A17]">
       <Navbar />
       <main className="flex-1">
         <Outlet />
@@ -49,7 +55,7 @@ function App() {
             <Route path="/browse" element={<BrowsePage />} />
             <Route path="/practitioner/:id" element={<PractitionerProfilePage />} />
             <Route path="/book/:practitionerId/:serviceId" element={
-              <ProtectedRoute roles={["client"]}>
+              <ProtectedRoute roles={CLIENT_ROLES}>
                 <BookingPage />
               </ProtectedRoute>
             } />
@@ -60,47 +66,47 @@ function App() {
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/p/:slug" element={<DirectBookingPage />} />
             <Route path="/dashboard/client" element={
-              <ProtectedRoute roles={["client"]}>
+              <ProtectedRoute roles={CLIENT_ROLES}>
                 <ClientDashboard />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/practitioner" element={
-              <ProtectedRoute roles={["practitioner"]}>
+              <ProtectedRoute roles={PRACTITIONER_ROLES}>
                 <PractitionerDashboard />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/practitioner/onboarding" element={
-              <ProtectedRoute roles={["practitioner"]}>
+              <ProtectedRoute roles={PRACTITIONER_ROLES}>
                 <PractitionerOnboarding />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/practitioner/services" element={
-              <ProtectedRoute roles={["practitioner"]}>
+              <ProtectedRoute roles={PRACTITIONER_ROLES}>
                 <ServicesManager />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/practitioner/portfolio" element={
-              <ProtectedRoute roles={["practitioner"]}>
+              <ProtectedRoute roles={PRACTITIONER_ROLES}>
                 <PortfolioManager />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/practitioner/availability" element={
-              <ProtectedRoute roles={["practitioner"]}>
+              <ProtectedRoute roles={PRACTITIONER_ROLES}>
                 <AvailabilityManager />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/practitioner/verification" element={
-              <ProtectedRoute roles={["practitioner"]}>
+              <ProtectedRoute roles={PRACTITIONER_ROLES}>
                 <VerificationPage />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/admin" element={
-              <ProtectedRoute roles={["admin"]}>
+              <ProtectedRoute roles={ADMIN_ROLES}>
                 <AdminDashboard />
               </ProtectedRoute>
             } />
             <Route path="/dashboard/admin/verifications" element={
-              <ProtectedRoute roles={["admin"]}>
+              <ProtectedRoute roles={ADMIN_ROLES}>
                 <AdminVerificationQueue />
               </ProtectedRoute>
             } />

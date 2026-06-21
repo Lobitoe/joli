@@ -58,13 +58,13 @@ export default function LandingPage() {
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-5 md:px-10 pt-14 pb-20 grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
           <div className="md:col-span-7 fade-in">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#EEDDCB] px-3 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#4A2B12]">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#EFE8DA] px-3 py-1 text-xs font-semibold tracking-[0.2em] uppercase text-[#3D1F2C]">
               <Sparkles size={12} /> Calgary · Edmonton · Built for the diaspora
             </div>
-            <h1 className="font-serif text-5xl md:text-7xl tracking-tight leading-[1.05] mt-5">
-              Beauty that knows <span className="italic text-[#984A23]">your texture,</span> your tradition, your time.
+            <h1 className="font-serif text-5xl md:text-7xl tracking-tight leading-[1.0] mt-5">
+              Beauty that <em className="italic text-[#C8552F]">knows you.</em>
             </h1>
-            <p className="mt-5 text-lg text-[#5C4E43] max-w-xl leading-relaxed">
+            <p className="mt-5 text-lg text-[#6E5F50] max-w-xl leading-relaxed">
               Joli connects you with mobile and independent braiders, locticians, barbers,
               nail techs, mehndi artists and bridal MUAs — replacing Instagram DMs with real
               portfolios, real pricing and deposit-protected bookings.
@@ -72,25 +72,25 @@ export default function LandingPage() {
 
             <form
               onSubmit={submit}
-              className="mt-8 bg-white border border-[#E2D9CF] shadow-sm rounded-2xl p-3 grid grid-cols-1 md:grid-cols-12 gap-2"
+              className="mt-8 bg-white border border-[#D9CFBE] shadow-sm rounded-2xl p-3 grid grid-cols-1 md:grid-cols-12 gap-2"
             >
-              <div className="md:col-span-6 flex items-center gap-2 px-3 border-r-0 md:border-r border-[#E2D9CF]">
-                <Search className="text-[#984A23]" size={18} />
+              <div className="md:col-span-6 flex items-center gap-2 px-3 border-r-0 md:border-r border-[#D9CFBE]">
+                <Search className="text-[#C8552F]" size={18} />
                 <input
                   data-testid={HOME.heroSearchStyle}
                   value={style}
                   onChange={(e) => setStyle(e.target.value)}
                   placeholder="Style (e.g., Knotless Braids, Skin Fade, Bridal Mehndi)"
-                  className="w-full bg-transparent outline-none h-12 placeholder:text-[#A89C91] text-[#2B231D]"
+                  className="w-full bg-transparent outline-none h-12 placeholder:text-[#8A7B6B] text-[#1F1A17]"
                 />
               </div>
               <div className="md:col-span-4 flex items-center gap-2 px-3">
-                <MapPin className="text-[#984A23]" size={18} />
+                <MapPin className="text-[#C8552F]" size={18} />
                 <select
                   data-testid={HOME.heroSearchCity}
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full bg-transparent outline-none h-12 text-[#2B231D]"
+                  className="w-full bg-transparent outline-none h-12 text-[#1F1A17]"
                 >
                   {CITIES.map((c) => (
                     <option key={c} value={c}>{c}</option>
@@ -100,13 +100,13 @@ export default function LandingPage() {
               <button
                 data-testid={HOME.heroSearchSubmit}
                 type="submit"
-                className="md:col-span-2 rounded-full bg-[#984A23] text-white font-semibold h-12 hover:bg-[#7e3d1d] transition-colors"
+                className="md:col-span-2 rounded-full bg-[#C8552F] text-white font-semibold h-12 hover:bg-[#A8451C] transition-colors"
               >
                 Find
               </button>
             </form>
 
-            <div className="mt-6 flex flex-wrap gap-2 text-xs text-[#5C4E43]">
+            <div className="mt-6 flex flex-wrap gap-2 text-xs text-[#6E5F50]">
               <span className="chip">Knotless Braids</span>
               <span className="chip">Skin Fade</span>
               <span className="chip">Gel Manicure</span>
@@ -132,10 +132,10 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="absolute -bottom-6 -left-6 hidden md:block bg-white rounded-2xl p-4 shadow-lg border border-[#E2D9CF] w-56">
-              <div className="text-xs uppercase tracking-widest text-[#5C4E43]">No-show shield</div>
+            <div className="absolute -bottom-6 -left-6 hidden md:block bg-white rounded-2xl p-4 shadow-lg border border-[#D9CFBE] w-56">
+              <div className="text-xs uppercase tracking-widest text-[#6E5F50]">No-show shield</div>
               <div className="text-2xl font-serif mt-1">25% deposit</div>
-              <div className="text-xs text-[#5C4E43] mt-1">
+              <div className="text-xs text-[#6E5F50] mt-1">
                 Locks your appointment. Your braider's 6-hour day is protected.
               </div>
             </div>
@@ -147,10 +147,10 @@ export default function LandingPage() {
       <section className="mx-auto max-w-7xl px-5 md:px-10 pb-16">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#984A23]">Browse by tradition</div>
+            <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#C8552F]">Browse by tradition</div>
             <h2 className="font-serif text-3xl md:text-4xl mt-1">Find your people</h2>
           </div>
-          <Link to="/browse" className="hidden md:inline-flex items-center gap-1 text-sm text-[#984A23] hover:underline">
+          <Link to="/browse" className="hidden md:inline-flex items-center gap-1 text-sm text-[#C8552F] hover:underline">
             See everything <ArrowRight size={14} />
           </Link>
         </div>
@@ -177,10 +177,10 @@ export default function LandingPage() {
       </section>
 
       {/* FEATURED PRACTITIONERS */}
-      <section className="bg-[#F3EFEA]">
+      <section className="bg-[#EFE8DA]">
         <div className="mx-auto max-w-7xl px-5 md:px-10 py-16">
           <div className="mb-8">
-            <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#984A23]">Featured</div>
+            <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#C8552F]">Featured</div>
             <h2 className="font-serif text-3xl md:text-4xl mt-1">Practitioners shaping the scene</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -189,7 +189,7 @@ export default function LandingPage() {
                 key={p.id}
                 to={`/practitioner/${p.id}`}
                 data-testid={HOME.featuredPractitionerCard}
-                className="bg-white rounded-2xl overflow-hidden border border-[#E2D9CF] hover:shadow-lg transition-shadow"
+                className="bg-white rounded-2xl overflow-hidden border border-[#D9CFBE] hover:shadow-lg transition-shadow"
               >
                 <div className="grid grid-cols-2 gap-0.5">
                   {(p.portfolio_thumbs || []).slice(0, 4).map((src, i) => (
@@ -202,18 +202,18 @@ export default function LandingPage() {
                   <div className="flex items-center justify-between">
                     <div className="font-serif text-xl">{p.display_name}</div>
                     <div className="flex items-center gap-1 text-sm">
-                      <Star size={14} className="fill-[#E1A100] text-[#E1A100]" />
+                      <Star size={14} className="fill-[#E8A33D] text-[#E8A33D]" />
                       <span>{p.avg_rating || "New"}</span>
                     </div>
                   </div>
-                  <div className="text-sm text-[#5C4E43] mt-1 capitalize">{p.practitioner_type.replace("_", " ")} · {p.city}</div>
+                  <div className="text-sm text-[#6E5F50] mt-1 capitalize">{p.practitioner_type.replace("_", " ")} · {p.city}</div>
                   {p.badges?.length > 0 && (
                     <div className="mt-2"><BadgeRow badges={p.badges} size="sm" limit={2} /></div>
                   )}
-                  <div className="text-xs text-[#5C4E43] mt-2 line-clamp-2">{p.bio}</div>
+                  <div className="text-xs text-[#6E5F50] mt-2 line-clamp-2">{p.bio}</div>
                   <div className="mt-3 flex items-center justify-between text-sm">
-                    <span className="text-[#984A23] font-semibold">From ${p.starting_price ?? "—"}</span>
-                    <span className="text-[#5C4E43]">{p.service_count} services</span>
+                    <span className="text-[#C8552F] font-semibold">From <span className="num">${p.starting_price ?? "—"}</span></span>
+                    <span className="text-[#6E5F50]">{p.service_count} services</span>
                   </div>
                 </div>
               </Link>
@@ -229,23 +229,23 @@ export default function LandingPage() {
           { key: "diaspora", icon: <Heart size={20} />, title: "Built for diasporic beauty", body: "Knotless braids that run 6 hours. Mehndi priced by complexity. Mobile barbers with route plans. Fresha can't do this." },
           { key: "zero-commission", icon: <Calendar size={20} />, title: "Your own clients, 0% commission", body: "Practitioners get a direct booking link. Anyone who books through it pays you full price, forever." },
         ].map((v) => (
-          <div key={v.key} className="bg-white border border-[#E2D9CF] rounded-2xl p-6">
-            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EEDDCB] text-[#4A2B12]">
+          <div key={v.key} className="bg-white border border-[#D9CFBE] rounded-2xl p-6">
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#EFE8DA] text-[#3D1F2C]">
               {v.icon}
             </div>
             <div className="font-serif text-xl mt-4">{v.title}</div>
-            <div className="text-sm text-[#5C4E43] mt-2 leading-relaxed">{v.body}</div>
+            <div className="text-sm text-[#6E5F50] mt-2 leading-relaxed">{v.body}</div>
           </div>
         ))}
       </section>
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-5 md:px-10 pb-20">
-        <div className="rounded-3xl bg-[#2B231D] text-white p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
+        <div className="rounded-3xl bg-[#1F1A17] text-white p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#C57245]">For practitioners</div>
+            <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#E8A33D]">For practitioners</div>
             <h3 className="font-serif text-3xl md:text-4xl mt-2">Stop running your business out of Instagram DMs.</h3>
-            <p className="mt-3 text-[#D9CFC6] leading-relaxed">
+            <p className="mt-3 text-[#EFE8DA] leading-relaxed">
               Join Joli free. Get a beautiful style-specific portfolio, structured booking with deposits,
               a direct booking link that costs you 0%, and SMS/WhatsApp reminders that bring people to the door.
             </p>
@@ -253,13 +253,13 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
               to="/register"
-              className="inline-flex items-center justify-center rounded-full bg-[#C57245] hover:bg-[#a35a32] px-6 py-3 font-semibold transition-colors"
+              className="inline-flex items-center justify-center rounded-full bg-[#E8A33D] hover:bg-[#C58820] px-6 py-3 font-semibold transition-colors"
             >
               Become a practitioner
             </Link>
             <Link
               to="/browse"
-              className="inline-flex items-center justify-center rounded-full border border-[#D9CFC6]/30 hover:border-white px-6 py-3 font-semibold transition-colors"
+              className="inline-flex items-center justify-center rounded-full border border-[#EFE8DA]/30 hover:border-white px-6 py-3 font-semibold transition-colors"
             >
               I'm here to book
             </Link>

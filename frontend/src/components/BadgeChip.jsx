@@ -1,13 +1,15 @@
 import { Scissors, ShieldCheck, FileBadge, Users, Star, BadgeCheck } from "lucide-react";
 
+// Brand badge palette per Joli Brand v0.1
+// Semantic mapping: trust=sage, certifications=plum, top-rated=saffron, community=clay
 const META = {
-  certified_barber: { label: "Certified Barber", Icon: Scissors, color: "bg-[#2B231D] text-white border-[#2B231D]" },
-  certified_hairstylist: { label: "Certified Stylist", Icon: Scissors, color: "bg-[#2B231D] text-white border-[#2B231D]" },
-  insured: { label: "Insured", Icon: ShieldCheck, color: "bg-[#4A5D23] text-white border-[#4A5D23]" },
-  background_checked: { label: "Background Checked", Icon: FileBadge, color: "bg-[#4A5D23] text-white border-[#4A5D23]" },
-  community_endorsed: { label: "Community Endorsed", Icon: Users, color: "bg-[#984A23] text-white border-[#984A23]" },
-  top_rated: { label: "Top Rated", Icon: Star, color: "bg-[#E1A100] text-[#2B231D] border-[#E1A100]" },
-  verified: { label: "ID Verified", Icon: BadgeCheck, color: "bg-white text-[#2B231D] border-[#2B231D]" },
+  certified_barber: { label: "Certified Barber", Icon: Scissors, bg: "#3D1F2C", fg: "#F7F1E8", border: "#3D1F2C" },
+  certified_hairstylist: { label: "Certified Stylist", Icon: Scissors, bg: "#3D1F2C", fg: "#F7F1E8", border: "#3D1F2C" },
+  insured: { label: "Insured", Icon: ShieldCheck, bg: "#2D7D6F", fg: "#F7F1E8", border: "#2D7D6F" },
+  background_checked: { label: "Background Checked", Icon: FileBadge, bg: "#2D7D6F", fg: "#F7F1E8", border: "#2D7D6F" },
+  community_endorsed: { label: "Community Endorsed", Icon: Users, bg: "#C8552F", fg: "#F7F1E8", border: "#C8552F" },
+  top_rated: { label: "Top Rated", Icon: Star, bg: "#E8A33D", fg: "#1F1A17", border: "#E8A33D" },
+  verified: { label: "Verified", Icon: BadgeCheck, bg: "#F7F1E8", fg: "#2D7D6F", border: "#2D7D6F" },
 };
 
 export default function BadgeChip({ type, size = "sm" }) {
@@ -16,7 +18,11 @@ export default function BadgeChip({ type, size = "sm" }) {
   const padding = size === "lg" ? "px-3 py-1.5 text-xs" : "px-2 py-0.5 text-[10px]";
   const icon = size === "lg" ? 14 : 11;
   return (
-    <span data-testid={`badge-${type}`} className={`inline-flex items-center gap-1 rounded-full border font-semibold uppercase tracking-wider ${padding} ${meta.color}`}>
+    <span
+      data-testid={`badge-${type}`}
+      className={`inline-flex items-center gap-1 rounded-full font-semibold uppercase tracking-wider border ${padding}`}
+      style={{ background: meta.bg, color: meta.fg, borderColor: meta.border, letterSpacing: "0.08em" }}
+    >
       <meta.Icon size={icon} /> {meta.label}
     </span>
   );
