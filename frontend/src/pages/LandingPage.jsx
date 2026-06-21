@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { HOME } from "@/constants/testIds";
+import { BadgeRow } from "@/components/BadgeChip";
 import { Search, MapPin, Star, ArrowRight, Sparkles, Shield, Heart, Calendar } from "lucide-react";
 
 const CATEGORY_CARDS = [
@@ -64,7 +65,7 @@ export default function LandingPage() {
               Beauty that knows <span className="italic text-[#984A23]">your texture,</span> your tradition, your time.
             </h1>
             <p className="mt-5 text-lg text-[#5C4E43] max-w-xl leading-relaxed">
-              Curlnect connects you with mobile and independent braiders, locticians, barbers,
+              Joli connects you with mobile and independent braiders, locticians, barbers,
               nail techs, mehndi artists and bridal MUAs — replacing Instagram DMs with real
               portfolios, real pricing and deposit-protected bookings.
             </p>
@@ -206,6 +207,9 @@ export default function LandingPage() {
                     </div>
                   </div>
                   <div className="text-sm text-[#5C4E43] mt-1 capitalize">{p.practitioner_type.replace("_", " ")} · {p.city}</div>
+                  {p.badges?.length > 0 && (
+                    <div className="mt-2"><BadgeRow badges={p.badges} size="sm" limit={2} /></div>
+                  )}
                   <div className="text-xs text-[#5C4E43] mt-2 line-clamp-2">{p.bio}</div>
                   <div className="mt-3 flex items-center justify-between text-sm">
                     <span className="text-[#984A23] font-semibold">From ${p.starting_price ?? "—"}</span>
@@ -242,7 +246,7 @@ export default function LandingPage() {
             <div className="overline text-xs tracking-[0.2em] uppercase font-bold text-[#C57245]">For practitioners</div>
             <h3 className="font-serif text-3xl md:text-4xl mt-2">Stop running your business out of Instagram DMs.</h3>
             <p className="mt-3 text-[#D9CFC6] leading-relaxed">
-              Join Curlnect free. Get a beautiful style-specific portfolio, structured booking with deposits,
+              Join Joli free. Get a beautiful style-specific portfolio, structured booking with deposits,
               a direct booking link that costs you 0%, and SMS/WhatsApp reminders that bring people to the door.
             </p>
           </div>

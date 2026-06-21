@@ -21,6 +21,10 @@ import AvailabilityManager from "@/pages/AvailabilityManager";
 import AdminDashboard from "@/pages/AdminDashboard";
 import HowItWorksPage from "@/pages/HowItWorksPage";
 import DirectBookingPage from "@/pages/DirectBookingPage";
+import BlogIndexPage from "@/pages/BlogIndexPage";
+import BlogPostPage from "@/pages/BlogPostPage";
+import VerificationPage from "@/pages/VerificationPage";
+import AdminVerificationQueue from "@/pages/AdminVerificationQueue";
 
 function Layout() {
   return (
@@ -52,6 +56,8 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
+            <Route path="/blog" element={<BlogIndexPage />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/p/:slug" element={<DirectBookingPage />} />
             <Route path="/dashboard/client" element={
               <ProtectedRoute roles={["client"]}>
@@ -83,9 +89,19 @@ function App() {
                 <AvailabilityManager />
               </ProtectedRoute>
             } />
+            <Route path="/dashboard/practitioner/verification" element={
+              <ProtectedRoute roles={["practitioner"]}>
+                <VerificationPage />
+              </ProtectedRoute>
+            } />
             <Route path="/dashboard/admin" element={
               <ProtectedRoute roles={["admin"]}>
                 <AdminDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard/admin/verifications" element={
+              <ProtectedRoute roles={["admin"]}>
+                <AdminVerificationQueue />
               </ProtectedRoute>
             } />
           </Route>

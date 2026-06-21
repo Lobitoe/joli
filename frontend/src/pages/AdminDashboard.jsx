@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import { ADMIN_DASH } from "@/constants/testIds";
-import { Users, DollarSign, Calendar, TrendingUp } from "lucide-react";
+import { Users, DollarSign, Calendar, TrendingUp, ShieldCheck } from "lucide-react";
 
 export default function AdminDashboard() {
   const [data, setData] = useState(null);
@@ -21,8 +22,15 @@ export default function AdminDashboard() {
 
   return (
     <div className="mx-auto max-w-6xl px-5 md:px-10 py-10">
-      <h1 className="font-serif text-4xl md:text-5xl">Admin</h1>
-      <p className="text-[#5C4E43] mt-1 mb-6">Marketplace health at a glance.</p>
+      <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+        <div>
+          <h1 className="font-serif text-4xl md:text-5xl">Admin</h1>
+          <p className="text-[#5C4E43] mt-1">Marketplace health at a glance.</p>
+        </div>
+        <Link to="/dashboard/admin/verifications" className="rounded-full bg-[#984A23] hover:bg-[#7e3d1d] text-white font-semibold px-4 py-2 text-sm inline-flex items-center gap-1">
+          <ShieldCheck size={14} /> Verification queue
+        </Link>
+      </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {cards.map((c) => (

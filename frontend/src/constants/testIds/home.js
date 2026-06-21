@@ -8,11 +8,33 @@ export const HOME = {
   navLogo: "nav-logo",
   navBrowse: "nav-browse",
   navHowItWorks: "nav-how-it-works",
+  navBlog: "nav-blog",
   navLogin: "nav-login",
   navRegister: "nav-register",
   navDashboard: "nav-dashboard",
   navLogout: "nav-logout",
   emergentLink: "home-emergent-link",
+};
+
+export const BLOG = {
+  postCard: "blog-post-card",
+  postBody: "blog-post-body",
+  embeddedPractitionerCard: "blog-embedded-practitioner",
+  embeddedBookButton: "blog-embedded-book-button",
+};
+
+export const VERIFICATION = {
+  uploadIdInput: "verify-upload-id",
+  uploadCertInput: "verify-upload-cert",
+  uploadInsuranceInput: "verify-upload-insurance",
+  submitButton: "verify-submit-button",
+  statusBadge: "verify-status-badge",
+};
+
+export const ADMIN_VERIFY = {
+  queueItem: "admin-verify-queue-item",
+  approveButton: "admin-verify-approve",
+  rejectButton: "admin-verify-reject",
 };
 
 export const BROWSE = {

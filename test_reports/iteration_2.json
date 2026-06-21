@@ -1,0 +1,41 @@
+{
+  "summary": "End-to-end testing of Joli V2 (rebrand from Curlnect + vetting/badges + blog). Backend: 23/23 pytest tests pass (rebrand login, /api/practitioners badges array, blog index+filters+detail with embedded practitioners, full verification workflow POST→GET→admin list→approve→badge grant→is_insured=true, 403 for non-admin, all existing regression flows). Frontend: all V2 acceptance criteria verified — Joli branding everywhere, no Curlnect text, navbar 'Journal' link with data-testid='nav-blog' → /blog, /blog renders 8 cards with data-testid='blog-post-card', /blog/best-braiders-calgary-2026 renders title+h2/h3/ul/blockquote+embedded practitioner card (data-testid='blog-embedded-practitioner') with working 'Book Now' link to /practitioner/{id}, /browse shows badge chips with data-testid='badge-*' (top_rated, certified_barber, insured), practitioner profile shows badges in large chips, prac dashboard has 'prac-dash-verification' quick action → /dashboard/practitioner/verification with all 5 expected testids (verify-upload-id, verify-upload-cert, verify-upload-insurance, verify-submit-button, verify-status-badge), admin queue at /dashboard/admin/verifications has admin-verify-approve/reject buttons (approve removes from queue), localStorage key is 'joli_token' (no 'curlnect_token'), auth persists on refresh.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/me/practitioner/verifications", "issue": "Returns only {ok: true, status: 'pending'} instead of full created record. Functional but not REST-idiomatic — consider returning the verification object for easier client integration."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "BrowsePage", "issues": ["React hydration warning '<span> cannot be a child of <option>' still present (carryover from iteration 1) — auto-injected editor x-source tracing spans inside <option> tags. Non-blocking but pollutes console."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_joli_v2.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "(LOW) Optionally return the full verification document from POST /api/me/practitioner/verifications for better client UX.",
+    "(LOW carry-over) Investigate <span>-in-<option> hydration warning on BrowsePage line ~100."
+  ],
+  "critical_code_review_comments": [
+    "server.py is now ~1024 lines — exceeds the 700-line threshold. Strongly recommend splitting into routers/ modules (auth, practitioners, bookings, blog, verifications, admin) before next iteration.",
+    "auth.py uses cookie-first then Bearer header. This is fine for SPA, but the frontend uses localStorage 'joli_token' + Bearer (no cookies on client side), so cookie path is effectively dead code. Either consume the httpOnly cookie consistently or drop set_auth_cookie. (Caused real test bug in shared requests.Session — see context_for_next_testing_agent.)",
+    "Verifications endpoint returns inconsistent shapes: POST returns minimal {ok, status}, GET returns {verifications, badges, verification_status}, admin GET returns a plain list. Consider normalising to either always-list or always-wrapped.",
+    "/api/blog list correctly strips body_markdown for index — good. embedded_practitioner_ids → embedded_practitioners hydration logic is correct.",
+    "is_insured roll-up + verification_status roll-up on approve is good design — verified end-to-end."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_joli_v2.py (new, 23 tests, all passing)"
+  ],
+  "success_rate": {"backend": "100% (23/23)", "frontend": "100% (all V2 acceptance criteria verified)"},
+  "test_credentials": "All credentials from /app/memory/test_credentials.md verified working: admin@tryjoli.com/AdminPass123!, blessing@/kofi@/linh@/priya@/fatima@/amara@/daniel@tryjoli.com/Pass123!. Old curlnect.com emails correctly rejected.",
+  "seed_data_creation": "Submitted a fatima insurance verification via UI which was approved during the test run — this granted Fatima a fresh badge. Blessing's insurance verification was also created+approved via pytest, so she now has badges=['top_rated','community_endorsed','insured'] and is_insured=true. These changes persist in joli_db. If next iteration needs a fully-pending queue, re-seed.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "IMPORTANT testing gotcha: backend auth.py reads token from cookie FIRST, then Authorization header. The login endpoint sets an httpOnly access_token cookie. If you use a shared requests.Session() across multiple users' logins, the most recent user's cookie will OVERRIDE the per-request Bearer header → unexpected 403s. Workaround in test_joli_v2.py: use fresh `requests.request()` calls (no Session) for authenticated calls; see _auth_request helper. Pytest also runs tests alphabetically within a class, so workflow-style tests with dependencies between methods will run out of order — use a single combined test_full_*_workflow method instead (see TestVerifications). Backend admin verification queue is now EMPTY (we approved both pending items during testing). Blog post detail at /blog/best-braiders-calgary-2026 is the post with embedded Blessing practitioner card; /blog/spec-to-launch from the review request does NOT exist — the review request had a typo, the slugs are real (joli-direct-booking-link-guide, best-braiders-calgary-2026, mobile-barbers-calgary-edmonton, bridal-mehndi-calgary-2026, etc.).",
+  "rca of the issue": "No production bugs found. The 4 initial pytest failures were all test-script issues: (1) POST verification returns minimal shape (test assumed full record); (2) GET own verifications returns wrapper object (test assumed list); (3) test ordering caused approve-test to run before submit-test; (4) shared requests.Session() leaked the most recent login's access_token cookie, overriding Bearer header on admin_stats call (because backend auth.py reads cookie first). All four fixed in the test file and final pass rate is 23/23."
+}

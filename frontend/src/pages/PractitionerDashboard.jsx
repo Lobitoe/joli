@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { PRACTITIONER_DASH } from "@/constants/testIds";
-import { Copy, ExternalLink, Calendar, DollarSign, Star, Settings, Image as ImageIcon, Clock, MessageSquare } from "lucide-react";
+import { Copy, ExternalLink, Calendar, DollarSign, Star, Settings, Image as ImageIcon, Clock, MessageSquare, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 
 export default function PractitionerDashboard() {
@@ -119,6 +119,10 @@ export default function PractitionerDashboard() {
               </Link>
               <Link to="/dashboard/practitioner/availability" data-testid={PRACTITIONER_DASH.manageAvailabilityButton} className="flex items-center justify-between rounded-xl border border-[#E2D9CF] hover:border-[#984A23] p-3 text-sm">
                 <span className="flex items-center gap-2"><Clock size={14} /> Manage availability</span>
+                <span>→</span>
+              </Link>
+              <Link to="/dashboard/practitioner/verification" data-testid="prac-dash-verification" className="flex items-center justify-between rounded-xl border border-[#E2D9CF] hover:border-[#984A23] p-3 text-sm">
+                <span className="flex items-center gap-2"><ShieldCheck size={14} /> Verification & badges</span>
                 <span>→</span>
               </Link>
             </div>

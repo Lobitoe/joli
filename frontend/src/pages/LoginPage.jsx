@@ -31,7 +31,7 @@ export default function LoginPage() {
           <Sparkles size={18} />
         </span>
         <h1 className="font-serif text-4xl mt-3">Welcome back</h1>
-        <p className="text-[#5C4E43] mt-2">Log in to your Curlnect account</p>
+        <p className="text-[#5C4E43] mt-2">Log in to your Joli account</p>
       </div>
       <form onSubmit={submit} className="bg-white rounded-2xl border border-[#E2D9CF] p-6 space-y-4">
         <div>
@@ -69,14 +69,14 @@ export default function LoginPage() {
           {loading ? "Logging in…" : "Log in"}
         </button>
         <div className="text-center text-sm text-[#5C4E43]">
-          New to Curlnect? <Link data-testid={AUTH.goToRegisterLink} to="/register" className="text-[#984A23] font-semibold hover:underline">Create an account</Link>
+          New to Joli? <Link data-testid={AUTH.goToRegisterLink} to="/register" className="text-[#984A23] font-semibold hover:underline">Create an account</Link>
         </div>
       </form>
       <div className="mt-6 text-xs text-[#5C4E43] bg-[#EEDDCB] rounded-2xl p-4">
         <div className="font-semibold mb-1">Demo accounts</div>
-        <div>Client: amara@curlnect.com / Pass123!</div>
-        <div>Practitioner: blessing@curlnect.com / Pass123!</div>
-        <div>Admin: admin@curlnect.com / AdminPass123!</div>
+        <div>Client: amara@tryjoli.com / Pass123!</div>
+        <div>Practitioner: blessing@tryjoli.com / Pass123!</div>
+        <div>Admin: admin@tryjoli.com / AdminPass123!</div>
       </div>
     </div>
   );

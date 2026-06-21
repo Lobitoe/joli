@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { api } from "@/lib/api";
 import { PROFILE } from "@/constants/testIds";
+import { BadgeRow } from "@/components/BadgeChip";
 import { Star, MapPin, Instagram, MessageCircle, CreditCard, Banknote, Smartphone, Heart, Share2, Clock, Languages, CheckCircle2 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
@@ -91,6 +92,10 @@ export default function PractitionerProfilePage() {
               )}
             </div>
             <p className="mt-4 text-[#5C4E43] leading-relaxed max-w-2xl">{p.bio}</p>
+
+            {p.badges?.length > 0 && (
+              <div className="mt-4"><BadgeRow badges={p.badges} size="lg" /></div>
+            )}
 
             <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
               {p.instagram_handle && (

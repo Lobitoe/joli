@@ -8,7 +8,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((cfg) => {
-  const token = localStorage.getItem("curlnect_token");
+  const token = localStorage.getItem("joli_token");
   if (token) cfg.headers.Authorization = `Bearer ${token}`;
   return cfg;
 });

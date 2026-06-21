@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { api } from "@/lib/api";
 import { BROWSE } from "@/constants/testIds";
+import { BadgeRow } from "@/components/BadgeChip";
 import { Star, MapPin, Sparkles, Filter } from "lucide-react";
 
 const CITIES = ["", "Calgary", "Edmonton", "Toronto", "Ottawa", "Montreal"];
@@ -171,6 +172,9 @@ export default function BrowsePage() {
                   {p.service_mode === "i_travel_to_clients" && <span className="chip ml-1">Mobile</span>}
                   {p.service_mode === "both" && <span className="chip ml-1">Mobile + Studio</span>}
                 </div>
+                {p.badges?.length > 0 && (
+                  <div className="mt-2"><BadgeRow badges={p.badges} size="sm" limit={3} /></div>
+                )}
                 <div className="text-xs text-[#5C4E43] mt-2 line-clamp-2">{p.bio}</div>
                 <div className="mt-3 flex items-center justify-between text-sm">
                   <span className="text-[#984A23] font-semibold">From ${p.starting_price ?? "—"}</span>

@@ -30,7 +30,7 @@ export default function RegisterPage() {
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#984A23] text-white">
           <Sparkles size={18} />
         </span>
-        <h1 className="font-serif text-4xl mt-3">Join Curlnect</h1>
+        <h1 className="font-serif text-4xl mt-3">Join Joli</h1>
         <p className="text-[#5C4E43] mt-2">Two-sided marketplace, one community.</p>
       </div>
       <form onSubmit={submit} className="bg-white rounded-2xl border border-[#E2D9CF] p-6 space-y-4">

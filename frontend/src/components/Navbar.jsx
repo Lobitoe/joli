@@ -23,12 +23,15 @@ export default function Navbar() {
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#984A23] text-white">
             <Sparkles size={16} />
           </span>
-          <span className="text-2xl font-serif tracking-tight">Curlnect</span>
+          <span className="text-2xl font-serif tracking-tight">Joli</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-6 text-sm">
           <Link to="/browse" data-testid={HOME.navBrowse} className="hover:text-[#984A23] transition-colors">
             Browse
+          </Link>
+          <Link to="/blog" data-testid={HOME.navBlog} className="hover:text-[#984A23] transition-colors">
+            Journal
           </Link>
           <Link to="/how-it-works" data-testid={HOME.navHowItWorks} className="hover:text-[#984A23] transition-colors">
             How it works
@@ -63,7 +66,7 @@ export default function Navbar() {
                 data-testid={HOME.navRegister}
                 className="rounded-full bg-[#984A23] text-white px-4 py-2 hover:bg-[#7e3d1d] transition-colors"
               >
-                Join Curlnect
+                Join Joli
               </Link>
             </>
           )}
@@ -77,6 +80,7 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden border-t border-[#E2D9CF] bg-[#FAF9F6] px-5 py-3 flex flex-col gap-3 text-sm">
           <Link to="/browse" onClick={() => setOpen(false)} className="py-1">Browse</Link>
+          <Link to="/blog" onClick={() => setOpen(false)} className="py-1">Journal</Link>
           <Link to="/how-it-works" onClick={() => setOpen(false)} className="py-1">How it works</Link>
           {user ? (
             <>
@@ -96,7 +100,7 @@ export default function Navbar() {
             <>
               <Link to="/login" onClick={() => setOpen(false)} className="py-1">Log in</Link>
               <Link to="/register" onClick={() => setOpen(false)} className="py-1 font-semibold text-[#984A23]">
-                Join Curlnect
+                Join Joli
               </Link>
             </>
           )}

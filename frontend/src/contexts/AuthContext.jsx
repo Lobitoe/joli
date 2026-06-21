@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   const fetchMe = useCallback(async () => {
-    const token = localStorage.getItem("curlnect_token");
+    const token = localStorage.getItem("joli_token");
     if (!token) {
       setUser(null);
       setLoading(false);
@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
       const { data } = await api.get("/auth/me");
       setUser(data);
     } catch (e) {
-      localStorage.removeItem("curlnect_token");
+      localStorage.removeItem("joli_token");
       setUser(null);
     } finally {
       setLoading(false);
@@ -32,7 +32,7 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     try {
       const { data } = await api.post("/auth/login", { email, password });
-      localStorage.setItem("curlnect_token", data.token);
+      localStorage.setItem("joli_token", data.token);
       setUser(data.user);
       return { ok: true, user: data.user };
     } catch (e) {
@@ -43,7 +43,7 @@ export function AuthProvider({ children }) {
   const register = async ({ email, password, name, role }) => {
     try {
       const { data } = await api.post("/auth/register", { email, password, name, role });
-      localStorage.setItem("curlnect_token", data.token);
+      localStorage.setItem("joli_token", data.token);
       setUser(data.user);
       return { ok: true, user: data.user };
     } catch (e) {
@@ -58,7 +58,7 @@ export function AuthProvider({ children }) {
       // logout endpoint is best-effort — proceed with local cleanup regardless
       console.debug("logout call failed", err);
     }
-    localStorage.removeItem("curlnect_token");
+    localStorage.removeItem("joli_token");
     setUser(null);
   };
 
