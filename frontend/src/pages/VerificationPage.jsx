@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { api, formatApiError } from "@/lib/api";
 import { VERIFICATION } from "@/constants/testIds";
@@ -17,11 +17,11 @@ export default function VerificationPage() {
   const [drafts, setDrafts] = useState({});
   const [saving, setSaving] = useState(null);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     const r = await api.get("/me/practitioner/verifications");
     setData(r.data);
-  };
-  useEffect(() => { load(); }, []);
+  }, []);
+  useEffect(() => { load(); }, [load]);
 
   const findExisting = (type) => data.verifications.find((v) => v.verification_type === type);
 

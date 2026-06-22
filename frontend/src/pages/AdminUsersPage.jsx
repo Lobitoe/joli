@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { api, formatApiError } from "@/lib/api";
 import { BadgeRow } from "@/components/BadgeChip";
@@ -26,7 +26,7 @@ export default function AdminUsersPage() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const load = async () => {
+  const load = useCallback(async () => {
     setLoading(true);
     const params = {};
     if (role) params.role = role;
@@ -38,9 +38,9 @@ export default function AdminUsersPage() {
     setUsers(u.data);
     setActivity(a.data);
     setLoading(false);
-  };
+  }, [role, search]);
 
-  useEffect(() => { load(); /* eslint-disable-next-line */ }, [role]);
+  useEffect(() => { load(); }, [load]);
 
   const onSearch = (e) => {
     e.preventDefault();
