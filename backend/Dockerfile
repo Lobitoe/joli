@@ -1,7 +1,12 @@
-# Joli backend — runs on a Debian-based Python image with a known-good
-# OpenSSL/TLS stack (fixes the Atlas SSL handshake failure seen on Render's
-# native from-source Python build).
+# Joli backend — Debian-based Python image with a known-good OpenSSL/TLS stack.
 FROM python:3.12-slim
+
+# Cap OpenSSL at TLS 1.2. MongoDB Atlas shared-tier (M0/M2/M5) proxies can
+# reject TLS 1.3 handshakes from Linux OpenSSL 3.x with
+# "[SSL: TLSV1_ALERT_INTERNAL_ERROR]". Forcing TLS 1.2 avoids it. The app's
+# only outbound TLS is to Atlas, so capping the max version is safe here.
+RUN sed -i 's/^\[openssl_init\]/[openssl_init]\nssl_conf = ssl_configuration/' /etc/ssl/openssl.cnf \
+ && printf '\n[ssl_configuration]\nsystem_default = tls_system_default\n\n[tls_system_default]\nMaxProtocol = TLSv1.2\nCipherString = DEFAULT@SECLEVEL=1\n' >> /etc/ssl/openssl.cnf
 
 WORKDIR /app
 
