@@ -6,6 +6,7 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
 
 import logging
+import os
 from fastapi import FastAPI, APIRouter
 from starlette.middleware.cors import CORSMiddleware
 
@@ -45,9 +46,15 @@ async def root():
 
 app.include_router(api)
 
+# CORS origins are configurable via the CORS_ORIGINS env var
+# (comma-separated). Defaults to "*" so nothing breaks before the
+# domain is set; tighten to your domain(s) in production.
+_cors_env = os.environ.get("CORS_ORIGINS", "*").strip()
+_allow_origins = ["*"] if _cors_env == "*" else [o.strip() for o in _cors_env.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_allow_origins,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -65,9 +72,15 @@ async def on_startup():
     await db.bookings.create_index("client_id")
     await db.blog_posts.create_index("slug", unique=True, sparse=True)
     await db.blog_posts.create_index([("published_at", -1)])
-    from seed import run_all_seeds
-    await run_all_seeds(db)
-    logger.info("Joli startup complete — seeds loaded.")
+    # Seeding is idempotent (each seeder guards against duplicates).
+    # Controlled by SEED_ON_START (default "true") so you can turn it
+    # off later once your database is populated.
+    if os.environ.get("SEED_ON_START", "true").strip().lower() in ("1", "true", "yes"):
+        from seed import run_all_seeds
+        await run_all_seeds(db)
+        logger.info("Joli startup complete — seeds loaded.")
+    else:
+        logger.info("Joli startup complete — seeding skipped (SEED_ON_START=false).")
 
 
 @app.on_event("shutdown")
