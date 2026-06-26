@@ -1,7 +1,7 @@
 import "@/App.css";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
 import { Toaster } from "sonner";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -32,6 +32,28 @@ import BlogPostPage from "@/pages/BlogPostPage";
 import VerificationPage from "@/pages/VerificationPage";
 import AdminVerificationQueue from "@/pages/AdminVerificationQueue";
 import AdminUsersPage from "@/pages/AdminUsersPage";
+import NotFoundPage from "@/pages/NotFoundPage";
+
+// Sends a logged-in user to their role-specific dashboard, and anyone
+// unauthenticated to login. Backs the bare /dashboard route.
+function DashboardRedirect() {
+  const { user, loading } = useAuth();
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-[#6E5F50]">
+        Loading...
+      </div>
+    );
+  }
+  if (!user) return <Navigate to="/login" replace />;
+  const dest =
+    user.role === "practitioner"
+      ? "/dashboard/practitioner"
+      : user.role === "admin"
+      ? "/dashboard/admin"
+      : "/dashboard/client";
+  return <Navigate to={dest} replace />;
+}
 
 function Layout() {
   return (
@@ -66,6 +88,7 @@ function App() {
             <Route path="/blog" element={<BlogIndexPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/p/:slug" element={<DirectBookingPage />} />
+            <Route path="/dashboard" element={<DashboardRedirect />} />
             <Route path="/dashboard/client" element={
               <ProtectedRoute roles={CLIENT_ROLES}>
                 <ClientDashboard />
@@ -116,6 +139,7 @@ function App() {
                 <AdminUsersPage />
               </ProtectedRoute>
             } />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
